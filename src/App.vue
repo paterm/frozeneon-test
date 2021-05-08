@@ -1,29 +1,36 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
-  </div>
+  <v-app>
+    <v-main>
+      <SearchField />
+      <Table :hits="$store.state.hits" />
+      <Dialog :activeHit="$store.state.activeHit" />
+    </v-main>
+
+    <v-footer>
+      <Footer />
+    </v-footer>
+  </v-app>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from './components/HelloWorld.vue';
+import Vue from 'vue';
+import SearchField from '@/components/SearchField.vue';
+import Table from '@/components/Table.vue';
+import Dialog from '@/components/Dialog.vue';
+import Footer from '@/components/Footer.vue';
 
-@Component({
+export default Vue.extend({
+  name: 'App',
+
   components: {
-    HelloWorld,
+    Footer,
+    Dialog,
+    Table,
+    SearchField,
   },
-})
-export default class App extends Vue {}
-</script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  data: () => ({
+    search: '',
+  }),
+});
+</script>
